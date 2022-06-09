@@ -18,10 +18,11 @@ pipeline {
 	    steps {
 	        echo "change directory"
 		sh '''
-		 ls -lrth
-		 cd dev
-		 ls -lrth
-		 pwd
+		   ls -lrth
+		   cd dev
+		   ls -lrth
+		   pwd
+		 '''
 		}
 	     }
 
