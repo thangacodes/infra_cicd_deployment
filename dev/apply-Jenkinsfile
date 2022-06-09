@@ -61,5 +61,3 @@ pipeline {
             slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Succeed  #########'
         }
     }
-
-}
