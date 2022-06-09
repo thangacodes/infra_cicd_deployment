@@ -13,6 +13,14 @@ pipeline {
 
           }
         }
+	
+	stage ("Changing to the directory, where the config file exist"){
+	    steps {
+	        echo "change directory"
+		sh 'cd dev'
+		sh 'ls -lrth'
+		}
+	     }
 
         stage ("terraform init") {
             steps {
