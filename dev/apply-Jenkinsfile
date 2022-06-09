@@ -29,7 +29,11 @@ pipeline {
         stage ("terraform init") {
             steps {
                 echo "Going to initialise the terraform module and download the plugin"
-                sh 'terraform init'
+                sh '''
+		   pwd
+		   sleep 5
+		   terraform init
+		'''
             }
         }
 		
