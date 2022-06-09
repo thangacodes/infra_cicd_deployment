@@ -65,17 +65,6 @@ variable "secondary_availability_zone" {
   default = "ap-south-1b"
 }
 
-variable "password" {
-  description = "Please Enter Password lenght of 5 characters!"
-  type        = string
-  sensitive   = true
-  validation {
-    condition     = length(var.password) == 5
-    error_message = "Your Password must be 5 characted exactly!!!"
-  }
-}
-
-################# RDS variables ##############
 variable "db_uname" {
   type    = string
   default = "admin"
@@ -92,7 +81,7 @@ variable "domain" {
 
 //Private_key file variables
 variable "private_key_path" {
-  default = "C:/Technical/Linkedin Learning/Jenkins/04-22-2022/dev/admin.pem"
+  default = "./admin.pem"
 }
 
 #######Security group ingress rules port configuration/
