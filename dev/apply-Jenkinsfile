@@ -55,10 +55,10 @@ pipeline {
             echo "********** Sending Slack Notifications on Piepline Job Status"
         }
         failure {
-            slackSend channel: 'devops', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Failure  #########'
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Failure  #########'
         }
         success {
-            slackSend channel: 'devops', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Succeed  #########'
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Succeed  #########'
         }
     }
 
