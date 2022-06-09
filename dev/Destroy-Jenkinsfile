@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('jenkins-aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key-id')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+            git branch: 'main', url: 'https://github.com/send2durai/CICD-Infra-provision.git'
+
+          }
+        }
+
+        stage ("terraform init") {
+            steps {
+                echo "Going to initialise the terraform module and download the plugin"
+                sh 'terraform init'
+            }
+        }
+		
+		stage ("terraform fmt") {
+            steps {
+                echo "It checks and arranging the terraform code proper format"
+                sh 'terraform fmt'
+            }
+        }
+
+        stage("terraform validate") {
+            steps {
+                echo"Going to validate the code written in HCL"
+                sh 'terraform validate'
+            }
+        }
+
+        stage("terraform plan") {
+            steps {
+                echo "Going to show us, what is going to be spin up"
+                sh 'terraform plan'
+            }
+        }
+
+        stage ("terraform Destroy") {
+            steps {
+                echo "This where the Jenkins admins need to select, whether he/she wants to deploy resources in AWS"
+                echo "Going to execute the terraform apply command"
+                sh 'sleep 2'
+                sh 'terraform destroy --auto-approve'
+           }
+        }
+        post {
+            always {
+            echo "********** Sending Slack Notifications on Piepline Job Status"
+        }
+        failure {
+            slackSend channel: 'devops', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Failure  #########'
+        }
+        success {
+            slackSend channel: 'devops', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Succeed  #########'
+        }
+    }
+
+}
+}
