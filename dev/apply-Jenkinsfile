@@ -31,7 +31,9 @@ pipeline {
                 echo "Going to initialise the terraform module and download the plugin"
                 sh '''
 		   pwd
-		   sleep 5
+		   cd dev
+		   sleep 3
+		   echo "Going to initialize the terraform init command"
 		   terraform init
 		'''
             }
@@ -40,21 +42,39 @@ pipeline {
 		stage ("terraform fmt") {
             steps {
                 echo "It checks and arranging the terraform code proper format"
-                sh 'terraform fmt'
+                sh '''
+		   pwd
+		   cd dev
+		   sleep 3
+		   echo "Going to format the terraform scripts"
+		   terraform fmt
+		'''
             }
         }
 
         stage("terraform validate") {
             steps {
                 echo"Going to validate the code written in HCL"
-                sh 'terraform validate'
+                sh '''
+		   pwd
+		   cd dev
+		   sleep 3
+		   echo "Going to validate the terraform scripts"
+		   terraform validate
+		'''
             }
         }
 
         stage("terraform plan") {
             steps {
                 echo "Going to show us, what is going to be spin up"
-                sh 'terraform plan'
+                sh '''
+		   pwd
+		   cd dev
+		   sleep 3
+		   echo "Going to perform dry-run"
+		   terraform plan
+		'''
             }
         }
 
