@@ -82,10 +82,10 @@ resource "aws_instance" "demo_web" {
   #associate_public_ip_address = "true"
   count     = 2
   key_name  = var.key
-  user_data = file("C:/Technical/Linkedin Learning/Jenkins/04-22-2022/dev/script.sh")
+  user_data = file("dev/script.sh")
 
   provisioner "file" {
-    source      = "C:/Technical/Linkedin Learning/Jenkins/04-22-2022/dev/ss.sql"
+    source      = "dev/ss.sql"
     destination = "/tmp/ss.sql"
   }
 
