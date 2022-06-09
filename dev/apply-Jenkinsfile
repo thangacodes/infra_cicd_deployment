@@ -50,6 +50,7 @@ pipeline {
                 sh 'terraform apply --auto-approve'
            }
         }
+    }
         post {
             always {
             echo "********** Sending Slack Notifications on Piepline Job Status"
@@ -61,5 +62,4 @@ pipeline {
             slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Succeed  #########'
         }
     }
-}
 }
