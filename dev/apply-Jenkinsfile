@@ -81,9 +81,12 @@ pipeline {
         stage ("terraform Apply") {
             steps {
                 echo "This where the Jenkins admins need to select, whether he/she wants to deploy resources in AWS"
-                echo "Going to execute the terraform apply command"
-                sh 'sleep 3'
-                sh 'terraform apply --auto-approve'
+                sh '''
+		   pwd
+		   ls -lrth
+		   echo "Going to execute the terraform apply command"
+                   terraform apply --auto-approve
+		'''
            }
         }
     }
