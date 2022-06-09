@@ -13,54 +13,76 @@ pipeline {
 
           }
         }
-
-        stage ("terraform init") {
-            steps {
-                echo "Going to initialise the terraform module and download the plugin"
-                sh 'terraform init'
-            }
+	
+	stage ("Changing to the directory, where the config file exist"){
+	    steps {
+	        echo "change directory"
+		sh '''
+		   ls -lrth
+		   cd dev
+		   ls -lrth
+		   pwd
+		 '''
+		}
+	}
+	stage ("terraform fmt") {
+      steps {
+      echo "It checks and arranging the terraform code proper format"
+      sh '''
+		   pwd
+		   cd dev
+		   sleep 3
+		   echo "Going to format the terraform scripts"
+		   terraform fmt
+		'''
+      }
+    }
+    stage("terraform validate") {
+        steps {
+        echo"Going to validate the code written in HCL"
+        sh '''
+		       pwd
+		       cd dev
+		       sleep 3
+		       echo "Going to validate the terraform scripts"
+		       terraform validate
+		    '''
+      }
+    }
+    stage("terraform plan") {
+        steps {
+        echo "Going to show us, what is going to be spin up"
+        sh '''
+		       pwd
+		       cd dev
+		       sleep 3
+		       echo "Going to perform dry-run"
+		       terraform plan
+		    '''
         }
-		
-		stage ("terraform fmt") {
-            steps {
-                echo "It checks and arranging the terraform code proper format"
-                sh 'terraform fmt'
-            }
-        }
-
-        stage("terraform validate") {
-            steps {
-                echo"Going to validate the code written in HCL"
-                sh 'terraform validate'
-            }
-        }
-
-        stage("terraform plan") {
-            steps {
-                echo "Going to show us, what is going to be spin up"
-                sh 'terraform plan'
-            }
-        }
-
-        stage ("terraform Destroy") {
-            steps {
-                echo "This where the Jenkins admins need to select, whether he/she wants to deploy resources in AWS"
-                echo "Going to execute the terraform apply command"
-                sh 'sleep 2'
-                sh 'terraform destroy --auto-approve'
+      }
+      stage ("terraform Destroy") {
+          steps {
+          echo "This where the Jenkins admins need to select, whether he/she wants to deploy resources in AWS"
+          sh '''
+		         pwd
+		         cd dev
+		         ls -lrth
+		         echo "Going to execute the terraform apply command"
+            terraform destroy --auto-approve
+		      '''
            }
         }
+    }
         post {
             always {
             echo "********** Sending Slack Notifications on Piepline Job Status"
         }
         failure {
-            slackSend channel: 'devops', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Failure  #########'
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Failure  #########'
         }
         success {
-            slackSend channel: 'devops', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Succeed  #########'
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Jenkins Pipeline Job is Succeed  #########'
         }
     }
-
-}
 }
