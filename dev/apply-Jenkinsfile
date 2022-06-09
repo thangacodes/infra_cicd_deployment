@@ -83,6 +83,7 @@ pipeline {
                 echo "This where the Jenkins admins need to select, whether he/she wants to deploy resources in AWS"
                 sh '''
 		   pwd
+		   cd dev
 		   ls -lrth
 		   echo "Going to execute the terraform apply command"
                    terraform apply --auto-approve
