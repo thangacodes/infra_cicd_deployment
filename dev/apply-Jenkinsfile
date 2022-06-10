@@ -104,6 +104,12 @@ pipeline {
                 '''
             }
         }
+	stage("Upload file"){
+            steps {
+                slackUploadFile filePath: '/tmp/terraform_output.txt', initialComment: 'Here is the terraform output'
+            }
+        }
+    }
     }
         post {
             always {
