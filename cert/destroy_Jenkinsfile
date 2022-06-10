@@ -14,7 +14,7 @@ pipeline {
             cd cert
             pwd
             ls -lrth
-            sudo chmod +x tfa.sh
+            sudo chmod +x tfd.sh
             ./tfd.sh
         '''
       }
