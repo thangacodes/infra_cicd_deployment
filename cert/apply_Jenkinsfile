@@ -19,7 +19,18 @@ pipeline {
         '''
       }
     }
+    stage('Create file'){
+      steps{
+        sh 'echo Hello World! > hello.txt'
+      }
+    }
+    stage('Upload file'){
+      steps{
+        slackUploadFile filePath: 'hello.txt', initialComment: 'Here is your file'
+      }
+    }
   }
+
   post {
     always {
       echo "********** Sending Slack Notifications on Piepline Job Status ***********"
