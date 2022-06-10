@@ -1,0 +1,18 @@
+pipeline {
+  agent any
+
+  stages {
+    stage("Shell Script is going to be invoked"){
+      steps{
+        sh '''
+            echo "chaging to the cert directory"
+            cd cert
+            pwd
+            ls -lrth
+            sudo chmod +x tfa.sh
+            ./tfa.sh
+        '''
+      }
+    }
+  }
+}
