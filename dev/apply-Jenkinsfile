@@ -90,6 +90,20 @@ pipeline {
 		'''
            }
         }
+	stage("terraform output"){
+            steps {
+                sh '''
+                   cd dev
+                   pwd
+                   ls -lrth
+                   sleep 3
+                   echo "Going to show us the terraform output"
+                   terraform output
+                   sleep 3
+                   terraform output > /tmp/terraform_output.txt
+                '''
+            }
+        }
     }
         post {
             always {
