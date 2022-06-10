@@ -24,8 +24,8 @@ pipeline {
 		   pwd
 		   sleep 5
 		   echo "Going to execute tfa.sh script to provision all in one short"
-		   ./tfa.sh
 		'''
+		sh 'dev/tfa.sh'
 		}
 	}
     stage("terraform output"){
