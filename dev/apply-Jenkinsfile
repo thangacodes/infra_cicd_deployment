@@ -94,7 +94,7 @@ pipeline {
         }
 	stage("Upload file"){
             steps {
-                slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/var/lib/jenkins/workspace/Infra_CICD_Terraform/dev/terraform_output.txt', initialComment: 'Terraform output'
+                slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/dev/terraform_output.txt', initialComment: 'Terraform output'
             }
         }
     }
