@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('jenkins-aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key-id')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+            git branch: 'main', url: 'https://github.com/send2durai/CICD-Infra-provision.git'
+
+          }
+        }
+	
+	stage ("Changing the directory, where the terraform script files exist"){
+	    steps {
+	        echo "change directory"
+		sh '''
+		   ls -lrth
+		   cd dev
+		   ls -lrth
+		   pwd
+		   sleep 5
+		   echo "Going to execute tfa.sh script to provision all in one short"
+		   tfa.sh
+		 '''
+		}
+	}
+    stage("terraform output"){
+         steps {
+             sh '''
+                cd dev
+                pwd
+                ls -lrth
+                sleep 3
+                echo "Going to show us the terraform output"
+                terraform output
+                sleep 3
+                terraform output > /tmp/terraform_output.txt
+				terraform output > terraform_output.txt
+                '''
+            }
+        }
+      }
+    }
+    post {
+        always {
+        echo "********** Sending Slack Notifications on Piepline Job Status"
+        }
+        failure {
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Failure. Please check the console output and take an action  #########'
+        }
+        success {
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Succeed. Resoruces have been provisioned. Please validate  #########'
+        }
+    }
