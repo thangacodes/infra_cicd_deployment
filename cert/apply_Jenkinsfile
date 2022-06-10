@@ -7,7 +7,7 @@ pipeline {
   }
 
   stages {
-    stage("Shell Script is going to be invoked"){
+    stage("Shell Script is going to be invoke to provision the services in AWS"){
       steps{
         sh '''
             echo "chaging to the cert directory"
