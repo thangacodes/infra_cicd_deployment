@@ -7,7 +7,7 @@ pipeline {
   }
 
   stages {
-    stage("Shell Script is going to be invoked to destroy the resources provisioned"){
+    stage("Shell Script is going to be invoke to destroy the resources provisioned"){
       steps{
         sh '''
             echo "chaging to the cert directory"
