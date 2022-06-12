@@ -1,10 +1,15 @@
-#! /bin/bash
-echo "************************ terraform destroy script **********************"
-# Terraform destroy
-echo $(date '+%Y-%m-%d %H:%M:%S') 'Terraform destroy --auto-approve' 
-terraform destroy --auto-approve
+#!/bin/bash
+set -x
+echo -e "\e[1;32m ***** This script is executed at *****" $(date '+%Y-%m-%d %H:%M:%S')
+sleep 2
+sleep 2
+echo " ******* Going to execute bash function *******"
 
-echo " ******** SLEEP 5 Seconds *******"
-sleep 5
+function tfd(){
+   echo "***** tfi - A basic terraform function *****"
+   echo " **** Going to execute terraform apply command *****"
+   terraform destroy --auto-approve
+}
+tfd
 exit
 
