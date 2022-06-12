@@ -15,6 +15,11 @@ variable "key" {
   default = "admin"
 }
 
+variable "sgp" {
+  type = list(string)
+  default = [ "sg-0fb1052b659369aa8" ]
+}
+
 variable "all_tag" {
   type = map(any)
   default = {
