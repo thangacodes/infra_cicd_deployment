@@ -11,6 +11,7 @@
 
 I.Dev env tree structure
 
+
 .
 ├── apply-Jenkinsfile
 ├── common_tf.sh
@@ -29,6 +30,9 @@ I.Dev env tree structure
 └── variables.tf
 0 directories, 15 files
 
+
+
+
 II.Cert env tree structure
 .
 ├── apply_Jenkinsfile
@@ -41,6 +45,8 @@ II.Cert env tree structure
 └── variables.tf
 
 0 directories, 8 files
+
+
 
 III. Prod env tree structure
 
