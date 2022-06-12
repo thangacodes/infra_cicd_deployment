@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+  environment {
+    AWS_ACCESS_KEY_ID = credentials('jenkins-aws-access-key-id')
+    AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key-id')
+  }
+
+  stages {
+    stage("Shell script is going to be invoke to destroy infra that are provisioned in AWS"){
+      steps{
+        sh '''
+           echo "Chaging prod directory to execute terraform scripts"
+           echo $(date '+%Y-%m-%d %H:%M:%S') 'Terraform destroy execution'
+           cd prod
+           pwd
+           ls -lrth
+           sudo chmod +x tfd.sh
+           ./tfd.sh
+        '''
+      }
+    }
+  }
+  post {
+    always{
+      echo "####### Sending Slack Notifications on pipeline Job Status ########"
+    }
+    failure {
+      slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Failure. Please check the console output  #########'
+    }
+    success{
+      slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Success. Please check the console output and AWS UI  #########'
+    }
+  }
+}
