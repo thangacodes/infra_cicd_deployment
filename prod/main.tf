@@ -3,7 +3,7 @@ resource "aws_instance" "prov-concept" {
   instance_type = var.instance_type
   key_name = var.key
   vpc_security_group_ids = [var.sgp[0]]
-  user_data = file("apache.sh")
+  user_data = file("./apache.sh")
   provisioner "local-exec" {
     command = "echo The server's IP Address is ${self.private_ip}"
   }
