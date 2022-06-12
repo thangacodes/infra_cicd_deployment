@@ -1,0 +1,34 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Listing the index.html file is exist or not"
+      command: ls -l /var/www/html/
+      register: ls_output
+    - debug: msg="{{ ls_output }}"
+
+    - name: "Viewing the html file"
+      shell: cat /var/www/html/index.html
+      register: index_info
+    - debug: msg="{{ index_info }}"
+
+    - name: "Sleeping for 10 seconds"
+      shell: sleep 10
+
+    - name: "Stopping httpd service"
+      shell: systemctl stop httpd
+      register: stop_out
+    - debug: msg="{{ stop_out }}"
+      ignore_errors: True
+
+    - name: "Removing httpd package"
+      shell: yum remove -y httpd
+      register: remove_out
+    - debug: msg="{{ remove_out }}"
+      ignore_errors: True
+
+    - name: "Deleting Document Root folder which is /var/www/html/*"
+      command: rm -rv /var/www/html/
+      register: del_out
+    - debug: msg="{{ del_out }}"

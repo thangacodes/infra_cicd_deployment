@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Installing httpd binary in Amazon Linux 2 OS"
+      shell: yum install -y httpd
+      register: httpd_install
+    - debug: msg="{{ httpd_install }}"
+
+    - name: "Starting the httpd serive"
+      shell: systemctl start httpd.service
+      register: httpd_start
+    - debug: msg="{{ httpd_start }}"
+
+    - name: "Configured to start at boot the httpd service"
+      shell: systemctl enable httpd.service
+      register: service_enable
+    - debug: msg="{{ service_enable }}"
+
+    - name: "Copying index.html file"
+      copy:
+        src: /home/victor/apps/cmx/index.html
+        dest: /var/www/html/index.html
+      register: html_copy
+    - debug: msg="{{ html_copy }}"
+
+    - name: "Restarting httpd service"
+      shell: systemctl restart httpd
+      register: httpd_ser
+    - debug: msg="{{ httpd_ser }}"
