@@ -1,5 +1,4 @@
-#! /bin/bash
-set -x
+#!/bin/bash
 function tfa(){
 if [ ls -l | grep -i '*.tf'];
 then
