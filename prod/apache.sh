@@ -5,5 +5,5 @@ sudo yum install -y httpd
 sleep 4
 sudo systemctl start httpd
 sudo systemctl enable httpd
-sudo cp index.html /var/www/html/index.html
+sudo cp prod/index.html /var/www/html/index.html
 sudo systemctl restart httpd
