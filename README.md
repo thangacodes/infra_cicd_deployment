@@ -9,8 +9,7 @@
 
 # Index of the Project Structure
 
-I.Dev env tree structure
-
+# Dev env tree structure
 
 .
 ├── apply-Jenkinsfile
@@ -33,7 +32,7 @@ I.Dev env tree structure
 
 
 
-II.Cert env tree structure
+# Cert env tree structure
 .
 ├── apply_Jenkinsfile
 ├── destroy_Jenkinsfile
@@ -48,7 +47,7 @@ II.Cert env tree structure
 
 
 
-III. Prod env tree structure
+# Prod env tree structure
 
 .
 ├── apache_install.yml
