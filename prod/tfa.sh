@@ -1,13 +1,15 @@
 #!/bin/bash
+set -x
+echo -e "\e[1;32m ***** This script is executed at *****" $(date '+%Y-%m-%d %H:%M:%S')
+sleep 2
+sleep 2
+echo " ******* Going to execute bash function *******"
+
 function tfa(){
-if [ ls -l /var/lib/jenkins/workspace/Tf_provisioner_concept/prod | grep -i '*.tf'];
-then
-     echo "Terraform script files are exist. There are scripts extension ends with .tf"
-     echo "Proceeding with terraform apply command"
-     terraform apply --auto-approve
-else
-	echo "Terraform script files not exist"
-fi
-tfa
+   echo "***** tfa - A basic terraform function *****"
+   echo " **** Going to execute terraform apply command *****"
+   terraform apply --auto-approve
 }
+tfa
+
 
