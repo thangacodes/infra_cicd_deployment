@@ -23,7 +23,7 @@ variable "sgp" {
 variable "all_tag" {
   type = map(any)
   default = {
-    Owner        = "thangadurai.murugan@cae.com"
+    Owner        = "thangadurai.murugan@example.com"
     Environment  = "Dev"
     Project      = "CloudOps Operations"
     CreationDate = "06/12/2022"
